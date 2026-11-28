@@ -1,0 +1,384 @@
+/* ============================================================
+   style.css — design tokens, reset, base layout
+   Palette: warm paper background, ink text, restrained gold accent
+   ============================================================ */
+
+:root {
+  --bg: #FAFAF8;
+  --text: #1A1A1A;
+  --text-soft: #6B6B6B;
+  --border: #E6E6E3;
+  --highlight: #F3EFE3;
+  --gold: #C9A24D;
+  --gold-deep: #B8913E;
+  --word-active: #F8DE91;
+  --word-active-ink: #2B220E;
+
+  --font-ui: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-arabic: 'Amiri', serif;
+
+  /* The design is light-only; do not let an OS dark mode repaint text. */
+  color-scheme: light;
+
+  --container: 1200px;
+  --header-h: 76px;
+}
+
+/* QCF page fonts carry the Qur'anic glyphs. Amiri is only the
+   safe fallback used while a QF font is loading or unavailable. */
+
+/* QCF V4 glyph words carry their own Tajweed colours in the page
+   font. Keep the normal palette on those glyphs and on the legacy
+   Tajweed example spans so no theme paints them black. */
+@supports (font-palette: normal) {
+  html,
+  .ayah-arabic,
+  .m-arabic,
+  .bismillah,
+  .qcf-glyph,
+  .qcf-end,
+  .tajweed-example-arabic,
+  .tajweed-arabic-name {
+    font-palette: normal;
+  }
+}
+
+/* Legacy CSS-span colours for the Tajweed guide page. The reader uses
+   QCF V4 glyph fonts instead and does not emit .tj spans. */
+:root {
+  --tj-hamza-wasl: #AAAAAA;
+  --tj-silent: #AAAAAA;
+  --tj-laam-shamsiyah: #AAAAAA;
+  --tj-madda-normal: #537FFF;
+  --tj-madda-permissible: #4050FF;
+  --tj-madda-necessary: #000EBC;
+  --tj-qalaqah: #DD0008;
+  --tj-madda-obligatory: #2144C1;
+  --tj-ikhafa-shafawi: #D500B7;
+  --tj-ikhafa: #9400A8;
+  --tj-idgham-shafawi: #58B800;
+  --tj-iqlab: #26BFFD;
+  --tj-idgham-with-ghunnah: #169777;
+  --tj-idgham-without-ghunnah: #169200;
+  --tj-idgham-mutajanisayn: #A1A1A1;
+  --tj-idgham-mutaqaribayn: #A1A1A1;
+  --tj-ghunnah: #FF7E1E;
+  --tj-tafkhim: #A0522D;
+  --tj-unknown: #6B6B6B;
+}
+html[data-tajwid="off"] .tj { color: inherit; font-weight: inherit; }
+.tj { font-weight: 400; }
+.tj-hamza-wasl { color: var(--tj-hamza-wasl); }
+.tj-silent { color: var(--tj-silent); }
+.tj-lam-shamsiyyah { color: var(--tj-laam-shamsiyah); }
+.tj-madda-normal { color: var(--tj-madda-normal); }
+.tj-madda-permissible { color: var(--tj-madda-permissible); }
+.tj-madda-necessary { color: var(--tj-madda-necessary); }
+.tj-qalaqah { color: var(--tj-qalaqah); }
+.tj-madda-obligatory { color: var(--tj-madda-obligatory); }
+.tj-ikhafa-shafawi { color: var(--tj-ikhafa-shafawi); }
+.tj-ikhafa { color: var(--tj-ikhafa); }
+.tj-idgham-shafawi { color: var(--tj-idgham-shafawi); }
+.tj-iqlab { color: var(--tj-iqlab); }
+.tj-idgham-with-ghunnah { color: var(--tj-idgham-with-ghunnah); }
+.tj-idgham-without-ghunnah { color: var(--tj-idgham-without-ghunnah); }
+.tj-idgham-mutajanisayn { color: var(--tj-idgham-mutajanisayn); }
+.tj-idgham-mutaqaribayn { color: var(--tj-idgham-mutaqaribayn); }
+.tj-ghunnah { color: var(--tj-ghunnah); }
+.tj-tafkhim { color: var(--tj-tafkhim); }
+
+/* Fallbacks keyed to the API code too. If a class name ever drifts
+   from the parser, the code still supplies the correct highlight. */
+.tj[data-code="h"] { color: var(--tj-hamza-wasl); }
+.tj[data-code="s"] { color: var(--tj-silent); }
+.tj[data-code="l"] { color: var(--tj-laam-shamsiyah); }
+.tj[data-code="n"] { color: var(--tj-madda-normal); }
+.tj[data-code="p"] { color: var(--tj-madda-permissible); }
+.tj[data-code="m"] { color: var(--tj-madda-necessary); }
+.tj[data-code="q"] { color: var(--tj-qalaqah); }
+.tj[data-code="o"] { color: var(--tj-madda-obligatory); }
+.tj[data-code="c"] { color: var(--tj-ikhafa-shafawi); }
+.tj[data-code="f"] { color: var(--tj-ikhafa); }
+.tj[data-code="w"] { color: var(--tj-idgham-shafawi); }
+.tj[data-code="i"] { color: var(--tj-iqlab); }
+.tj[data-code="a"] { color: var(--tj-idgham-with-ghunnah); }
+.tj[data-code="u"] { color: var(--tj-idgham-without-ghunnah); }
+.tj[data-code="d"] { color: var(--tj-idgham-mutajanisayn); }
+.tj[data-code="b"] { color: var(--tj-idgham-mutaqaribayn); }
+.tj[data-code="g"] { color: var(--tj-ghunnah); }
+.tj[data-code="t"] { color: var(--tj-tafkhim); }
+.tj.tj-unknown { color: var(--tj-unknown); }
+
+/* QCF V4 glyph words. The page font supplies the colours; these rules
+   only keep the Unicode fallback readable if that font cannot load. */
+.qcf-word,
+.qcf-end { font-weight: 400; }
+.qcf-fallback,
+.qcf-end { font-family: var(--font-arabic), serif; }
+
+html[data-tajwid="on"] .w.is-active .tj,
+html[data-tajwid="on"] .w.is-word-playing .tj {
+  color: var(--word-active-ink);
+}
+
+/* --- Reset --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* The hidden attribute always wins: layout classes set display:
+   flex/grid on some elements (e.g. .mark-page-row, .audio-bar),
+   which would otherwise keep them on screen after JS sets
+   hidden = true. */
+[hidden] { display: none !important; }
+
+html {
+  scroll-behavior: smooth;
+  /* Keep the scrollbar space reserved so opening a fixed drawer
+     never makes the page underneath jump sideways. */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, p { margin: 0; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Accessible, visible focus everywhere. The ring follows each
+   control's own radius — never force `border-radius` here or rounded
+   buttons turn square as soon as they are focused. */
+:where(button, a, input, select, textarea, [tabindex]):focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.tool-select:focus-visible,
+.field select:focus-visible,
+.field input:focus-visible {
+  outline: none;
+}
+
+/* --- Scrollbars: minimal, paper-toned ------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #D6D3CC transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D6D3CC;
+  border-radius: 999px;
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* --- Layout helpers --- */
+.container {
+  width: min(100% - 48px, var(--container));
+  margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: -56px;
+  left: 16px;
+  z-index: 100;
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 12px; }
+
+/* --- Header --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 250, 248, 0.88);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-mark {
+  width: 22px;
+  height: 22px;
+  color: var(--gold);
+}
+.brand-name {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* --- Opening (welcome) --- */
+.opening {
+  padding: 88px 0 76px;
+  text-align: center;
+}
+
+.opening-star {
+  width: 26px;
+  height: 26px;
+  color: var(--gold);
+  margin: 0 auto 30px;
+}
+
+.opening-bismillah {
+  font-family: var(--font-arabic);
+  font-size: 30px;
+  line-height: 1.9;
+  margin-bottom: 44px;
+}
+
+.opening-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 14px;
+}
+
+.opening-greeting {
+  font-size: clamp(40px, 5vw, 54px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.opening-date {
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--text-soft);
+}
+.date-sep { margin: 0 10px; color: var(--border); }
+
+/* --- Shared section chrome --- */
+.continue,
+.pathways,
+.progress-overview {
+  border-top: 1px solid var(--border);
+}
+
+.continue         { padding: 60px 0 64px; }
+.pathways         { padding: 60px 0 64px; }
+.progress-overview{ padding: 60px 0 96px; }
+
+.section-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.section-head-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-soft);
+  transition: color 0.2s ease;
+}
+.section-link-arrow { transition: transform 0.25s ease; }
+.section-link:hover { color: var(--text); }
+.section-link:hover .section-link-arrow {
+  transform: translateX(4px);
+  color: var(--gold);
+}
+
+/* --- Footer --- */
+.site-footer { border-top: 1px solid var(--border); }
+
+.footer-inner {
+  padding: 36px 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-note,
+.footer-copy {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* --- Motion preferences --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

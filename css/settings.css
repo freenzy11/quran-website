@@ -1,0 +1,198 @@
+/* ============================================================
+   settings.css — the one-place preference page.
+   Uses the shared paper / ink / gold tokens from style.css.
+   ============================================================ */
+
+body[data-page="settings"] { --container: 960px; }
+
+.settings-head { padding-top: 48px; }
+.settings-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+.settings-back:hover { color: var(--gold-deep); }
+
+.page-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.page-title {
+  margin-top: 10px;
+  font-size: clamp(32px, 5vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.page-lede {
+  margin-top: 12px;
+  max-width: 60ch;
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+.settings-section { padding: 28px 0 34px; border-top: 1px solid var(--border); }
+.settings-section-title {
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.settings-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: #fff;
+  padding: 6px 22px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  min-height: 76px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.setting-row:last-child { border-bottom: 0; }
+
+.setting-copy { min-width: 0; }
+.setting-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+.setting-hint {
+  margin-top: 4px;
+  max-width: 56ch;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+/* Shared switch, styled like the Reader drawer switch. */
+.settings-switch {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.settings-switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--text-soft);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.setting-toggle[aria-pressed="true"] .settings-switch {
+  background: var(--highlight);
+  border-color: var(--gold);
+}
+.setting-toggle[aria-pressed="true"] .settings-switch::after {
+  transform: translateX(20px);
+  background: var(--gold-deep);
+}
+
+.setting-row .select--box { width: min(320px, 100%); }
+.goal-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+.goal-controls input {
+  width: 104px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  font: inherit;
+  color: var(--text);
+}
+.settings-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 14px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.settings-btn:hover { border-color: var(--gold); color: var(--gold-deep); }
+.settings-btn-primary { background: var(--gold); border-color: var(--gold); color: var(--text); }
+.settings-btn-danger { color: #9B3B32; }
+.settings-btn-danger:hover { border-color: #9B3B32; color: #9B3B32; }
+
+.settings-msg {
+  min-height: 22px;
+  padding: 4px 0 14px;
+  font-size: 13px;
+  color: var(--gold-deep);
+}
+
+/* --- Khatm block (rendered by khatm-panel.js) ------------------- */
+.khatm-settings { border-bottom: 1px solid var(--border); }
+.khatm-settings .setting-row:last-child { border-bottom: 0; }
+.khatm-field {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+.khatm-input {
+  width: 180px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  font: inherit;
+  color: var(--text);
+}
+.khatm-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.khatm-stat { font-size: 22px; font-weight: 500; }
+.khatm-note { margin-top: 6px; font-size: 13px; color: var(--text-soft); }
+.khatm-state {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--gold-deep);
+}
+
+@media (max-width: 560px) {
+  .settings-head { padding-top: 32px; }
+  .settings-card { padding: 4px 16px; }
+  .setting-row { flex-direction: column; align-items: stretch; gap: 12px; }
+  .setting-row .select--box,
+  .goal-controls { width: 100%; max-width: none; }
+  .goal-controls input { flex: 1; min-width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settings-switch,
+  .settings-switch::after { transition: none !important; }
+}

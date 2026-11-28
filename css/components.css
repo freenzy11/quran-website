@@ -1,0 +1,457 @@
+/* ============================================================
+   components.css — navigation, buttons, continue-reading,
+   pathway rows, progress blocks
+   ============================================================ */
+
+/* --- Primary nav --- */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-menu a {
+  position: relative;
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 15px;
+  color: var(--text-soft);
+  transition: color 0.2s ease;
+}
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--gold);
+  transition: right 0.25s ease;
+}
+.nav-menu a:hover { color: var(--text); }
+.nav-menu a:hover::after,
+.nav-menu a[aria-current="page"]::after { right: 0; }
+.nav-menu a[aria-current="page"] { color: var(--text); }
+
+/* Three-line menu in the shared navbar */
+.nav-menu li.site-menu-wrap,
+.site-menu-wrap { position: relative; }
+
+.nav-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.nav-icon-btn:hover,
+.nav-icon-btn[aria-expanded="true"] {
+  background: var(--highlight);
+  color: var(--gold-deep);
+}
+.nav-icon-btn svg { width: 21px; height: 21px; }
+.nav-settings-label { display: none; }
+
+.site-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 80;
+  min-width: 190px;
+  padding: 6px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 14px 36px rgba(26, 26, 26, 0.09);
+}
+.site-menu[hidden] { display: none; }
+.site-menu a,
+.site-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.site-menu a:hover,
+.site-menu button:hover {
+  background: var(--highlight);
+  color: var(--text);
+}
+
+/* Mobile toggle (hidden on desktop; shown in responsive.css) */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+}
+.nav-toggle-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 20px;
+}
+.nav-toggle-box span {
+  height: 1.5px;
+  background: var(--text);
+  transition: transform 0.25s ease;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-box span:first-child {
+  transform: translateY(3.75px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-box span:last-child {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.btn-primary {
+  background: var(--text);
+  color: var(--bg);
+}
+.btn-primary:hover {
+  background: #000;
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* --- Continue reading --- */
+.continue-current {
+  margin-top: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.continue-surah {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.continue-name {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.continue-arabic {
+  font-family: var(--font-arabic);
+  font-size: 32px;
+  line-height: 1.4;
+}
+.continue-meta {
+  margin-top: 12px;
+  font-size: 15px;
+  color: var(--text-soft);
+}
+
+.continue-empty {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.continue-empty-text {
+  max-width: 54ch;
+  font-size: 16px;
+  color: var(--text-soft);
+}
+
+/* --- Pathway rows (editorial list, not cards) --- */
+.pathway-list { margin-top: 10px; }
+
+.pathway {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 34px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pathway-list li:first-child .pathway {
+  margin-top: 26px;
+}
+/* The following section already carries a top border */
+.pathway-list li:last-child .pathway {
+  border-bottom: 0;
+}
+
+.pathway-num {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.pathway-title {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+.pathway-desc {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--text-soft);
+  max-width: 60ch;
+}
+
+.pathway-arrow {
+  width: 22px;
+  height: 22px;
+  color: var(--text-soft);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.pathway:hover .pathway-arrow {
+  transform: translateX(6px);
+  color: var(--gold);
+}
+.pathway:hover .pathway-title { color: #000; }
+
+/* --- Progress overview --- */
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 34px;
+}
+
+.progress-block { padding-right: 32px; }
+.progress-block + .progress-block {
+  border-left: 1px solid var(--border);
+  padding-left: 32px;
+}
+
+.progress-num {
+  display: block;
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-label {
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.progress-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.progress-bar {
+  margin-top: 20px;
+  height: 2px;
+  max-width: 220px;
+  background: var(--border);
+  overflow: hidden;
+}
+.progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+  transition: width 0.8s ease;
+}
+
+/* Bookmarks list (Home) */
+.bookmarks { margin-top: 48px; }
+.bookmark-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+.bookmark-list a {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+  color: var(--text); text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.bookmark-list a:hover { background: var(--highlight); }
+.bookmark-list .bm-ayah { color: var(--text-soft); }
+
+/* ============================================================
+   Custom selects (js/selects.js)
+   The native <select> is kept hidden as the data source;
+   the visible control is a styled trigger + styled listbox.
+   ============================================================ */
+
+.select { position: relative; display: inline-flex; }
+
+.select-native {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+}
+
+.select-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: inherit;
+  color: var(--text-soft);
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.2s ease, border-color 0.2s ease,
+              background-color 0.2s ease;
+}
+.select-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.select-chevron {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  transition: transform 0.2s ease;
+}
+.select-chevron svg { width: 100%; height: 100%; }
+.select.is-open .select-chevron { transform: rotate(180deg); }
+.select.is-open .select-trigger { color: var(--text); }
+
+/* No ring on mouse click, but keyboard focus stays visible and uses
+   the site's gold accent instead of the browser's default black line. */
+.select-trigger:focus { outline: none; }
+.select-trigger:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  color: var(--text);
+}
+
+/* Underline skin — Reader toolbar */
+.select--underline .select-trigger {
+  min-height: 40px;
+  padding: 8px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+}
+.select--underline .select-trigger:hover {
+  color: var(--text);
+  border-bottom-color: var(--text-soft);
+}
+.select--underline .select-menu { min-width: 210px; }
+
+/* Box skin — form fields */
+.select--box .select-trigger {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--text);
+  background: transparent;
+}
+.select--box .select-trigger:hover { border-color: var(--text-soft); }
+.select--box .select-value { margin-right: 6px; }
+
+/* Styled listbox */
+.select-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 80;
+  min-width: 100%;
+  max-width: min(320px, calc(100vw - 24px));
+  max-height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 14px 36px rgba(26, 26, 26, 0.09);
+  display: none;
+}
+.select.is-open .select-menu { display: block; }
+.select-menu.select-menu--right {
+  left: auto;
+  right: 0;
+}
+.select-menu.select-menu--up {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+.select-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-soft);
+  text-align: left;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.select-option:hover,
+.select-option.is-active {
+  background: var(--highlight);
+  color: var(--text);
+}
+.select-option.is-selected { color: var(--gold-deep); }
+.select-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.select-option-check {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--gold-deep);
+  opacity: 0;
+}
+.select-option-check svg { width: 100%; height: 100%; }
+.select-option.is-selected .select-option-check { opacity: 1; }
+.select-option.is-disabled { opacity: 0.4; pointer-events: none; }

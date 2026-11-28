@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — Al-Furqon</title>
+  <meta name="description" content="Set listening, reading, khatm and goal preferences for this browser.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/reader.css">
+  <link rel="stylesheet" href="../css/settings.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-page="settings">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="Al-Furqon home">
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5.2" y="5.2" width="13.6" height="13.6"/>
+            <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"/>
+          </g>
+          <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">Al-Furqon</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="../index.html" data-nav="home">Home</a></li>
+          <li><a href="quran.html" data-nav="quran">Quran</a></li>
+          <li><a href="statistics.html" data-nav="statistics">Statistics</a></li>
+          <li><a href="login.html" data-nav="login">Sign in</a></li>
+          <li class="site-menu-wrap">
+            <button type="button" id="site-menu-toggle" class="nav-icon-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-settings-label">Menu</span>
+            </button>
+            <div class="site-menu" id="site-menu" role="menu" aria-label="Main menu" hidden>
+              <a href="login.html" role="menuitem">Profile</a>
+              <button type="button" role="menuitem" data-menu-settings data-settings-href="settings.html">Settings</button>
+              <a href="mailto:alfurqon.contact@gmail.com" role="menuitem">Contact us</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container page-head settings-head">
+      <a class="settings-back" href="quran.html">
+        <span aria-hidden="true">&larr;</span> Back to Qur’an
+      </a>
+      <p class="page-eyebrow">Preferences</p>
+      <h1 class="page-title">Settings</h1>
+      <p class="page-lede">Manage your khatm, daily goal and saved data. Listening and reading choices live in the top menu on the Qur’an page.</p>
+    </div>
+
+    <section class="page-section settings-section" id="khatm" aria-labelledby="khatm-title">
+      <div class="container">
+        <h2 class="settings-section-title" id="khatm-title">Khatm and goals</h2>
+        <div class="settings-card">
+          <div id="khatm-settings" class="khatm-settings">
+            <!-- Rendered by js/khatm-panel.js -->
+          </div>
+          <div class="setting-row setting-goal">
+            <div class="setting-copy">
+              <label class="setting-label" for="setting-daily-goal">Daily goal (ayahs per day)</label>
+              <p class="setting-hint">Shown on the Home and Statistics pages.</p>
+            </div>
+            <div class="goal-controls">
+              <label class="visually-hidden" for="setting-daily-goal">Daily goal in ayahs</label>
+              <input type="number" id="setting-daily-goal" min="1" max="6236" inputmode="numeric">
+              <button type="button" id="setting-goal-save" class="settings-btn">Save</button>
+            </div>
+          </div>
+          <p id="goal-message" class="settings-msg" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section settings-section" id="data" aria-labelledby="data-title">
+      <div class="container">
+        <h2 class="settings-section-title" id="data-title">Data</h2>
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-copy">
+              <span class="setting-label">Backup</span>
+              <p class="setting-hint">Download all bookmarks, memorization, khatm records and preferences.</p>
+            </div>
+            <button type="button" id="data-export" class="settings-btn">Export backup</button>
+          </div>
+          <div class="setting-row">
+            <div class="setting-copy">
+              <span class="setting-label">Import</span>
+              <p class="setting-hint">Restore a backup file from this site.</p>
+            </div>
+            <button type="button" id="data-import" class="settings-btn">Choose file</button>
+            <input type="file" id="data-import-file" accept="application/json,.json" hidden>
+          </div>
+          <div class="setting-row">
+            <div class="setting-copy">
+              <span class="setting-label">Reset all data</span>
+              <p class="setting-hint">Clears every saved record in this browser. This cannot be undone.</p>
+            </div>
+            <button type="button" id="data-reset" class="settings-btn settings-btn-danger">Reset</button>
+          </div>
+          <p id="data-message" class="settings-msg" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section settings-section" id="about-section" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="settings-section-title" id="about-title">About</h2>
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-copy">
+              <span class="setting-label">Credits and sources</span>
+              <p class="setting-hint">See where the Qur’an text, recitation and translations come from.</p>
+            </div>
+            <a class="settings-btn" href="about.html">About and credits</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-note">All preferences are stored privately in this browser.</p>
+      <p class="footer-note"><a class="section-link" href="about.html">About and credits</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+      <p class="footer-copy">© <span id="footer-year"></span> Al-Furqon — a personal Qur’an companion.</p>
+    </div>
+  </footer>
+
+  <script src="../js/surahs.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/quran-api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/selects.js"></script>
+  <script src="../js/khatm-panel.js"></script>
+  <script src="../js/settings-page.js"></script>
+</body>
+</html>

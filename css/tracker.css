@@ -1,0 +1,271 @@
+/* ============================================================
+   tracker.css — Memorize, Khatm, Statistics pages.
+
+   Editorial layout in the same voice as the home page:
+   labels, rules, generous whitespace. No cards, no gradients.
+   ============================================================ */
+
+/* --- Page opening -------------------------------------------- */
+
+.page-head {
+  padding: 76px 0 58px;
+  max-width: 72ch;
+}
+
+.page-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 14px;
+}
+
+.page-title {
+  font-size: clamp(34px, 4.4vw, 46px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.page-lede {
+  margin-top: 18px;
+  font-size: 16px;
+  color: var(--text-soft);
+  max-width: 58ch;
+}
+
+.page-section {
+  border-top: 1px solid var(--border);
+  padding: 56px 0 62px;
+}
+.page-section:last-of-type { padding-bottom: 96px; }
+
+.section-head-row + .section-body,
+.section-body { margin-top: 8px; }
+
+/* --- Summary numbers (reuses .progress-grid tokens) ----------- */
+
+.stat-note {
+  margin-top: 26px;
+  font-size: 14px;
+  color: var(--text-soft);
+  max-width: 60ch;
+}
+
+/* --- Minimal form controls ------------------------------------ */
+
+.field {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.field label {
+  font-size: 14px;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.field select,
+.field input[type="number"] {
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  min-width: 0;
+}
+
+.field select { max-width: 340px; }
+.field .select--box { max-width: 340px; }
+.field input[type="number"] { width: 110px; }
+
+.field select:focus-visible,
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--text-soft);
+}
+
+/* Small pill button, quieter than .btn-primary */
+.btn-quiet {
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-quiet:hover { background: var(--text); color: var(--bg); }
+
+.btn-danger {
+  border-color: var(--border);
+  color: var(--text-soft);
+}
+.btn-danger:hover {
+  background: transparent;
+  color: #8a3b2e;
+  border-color: #8a3b2e;
+}
+
+/* --- Row lists (memorized surahs, khatm log) ------------------- */
+
+.track-list { margin-top: 14px; }
+
+.track-row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+}
+.track-list li:last-child .track-row { border-bottom: 0; }
+
+.track-num {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.track-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 19px;
+  font-weight: 500;
+}
+.track-arabic {
+  font-family: var(--font-arabic);
+  font-size: 20px;
+  color: var(--text-soft);
+}
+.track-meta {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.track-action {
+  font-size: 13px;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.track-action:hover { color: #8a3b2e; border-color: #8a3b2e; }
+
+/* Partial memorization: ayah chips inside a surah group */
+.track-detail {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+.track-detail a {
+  color: var(--text);
+  border-bottom: 1px solid var(--gold);
+  transition: color 0.2s ease;
+}
+.track-detail a:hover { color: var(--gold-deep); }
+
+/* Saved ayahs: status select + remove, kept on one row */
+.track-manage {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.track-manage .select--box .select-trigger {
+  min-height: 40px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+.track-manage .select--box .select-menu { min-width: 190px; }
+
+/* --- Inline log controls (Khatm) ------------------------------- */
+
+.quick-log {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.quick-log .btn-quiet { min-height: 40px; padding: 8px 18px; }
+
+.log-note {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-soft);
+  max-width: 56ch;
+}
+
+/* --- Day bars (Statistics) ------------------------------------- */
+
+.day-list {
+  margin-top: 34px;
+  max-width: 560px;
+}
+
+.day-row {
+  display: grid;
+  grid-template-columns: 96px 1fr 64px;
+  align-items: center;
+  gap: 18px;
+  padding: 9px 0;
+}
+
+.day-label {
+  font-size: 13px;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.day-track {
+  height: 3px;
+  background: var(--border);
+  overflow: hidden;
+}
+.day-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+}
+
+.day-count {
+  font-size: 13px;
+  text-align: right;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Empty states ---------------------------------------------- */
+
+.empty-note {
+  margin-top: 26px;
+  font-size: 15px;
+  color: var(--text-soft);
+  max-width: 58ch;
+  line-height: 1.7;
+}
+.empty-note a {
+  color: var(--text);
+  border-bottom: 1px solid var(--gold);
+}
+.empty-note a:hover { color: var(--gold-deep); }
+
+/* --- Confirm inline message ------------------------------------- */
+
+.inline-msg {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+.inline-msg strong { color: var(--text); font-weight: 500; }

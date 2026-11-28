@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Logo concepts</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;display=swap">
+<style>
+  body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; }
+  .lg-card { background: #FFFFFF; border: 1px solid #E6E6E3; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .lg-swatches { display: flex; gap: 10px; }
+  .lg-swatch { width: 84px; height: 84px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .lg-name { font-size: 13.5px; font-weight: 700; color: #1A1A1A; margin: 0; }
+  .lg-desc { font-size: 12px; color: #6B6B6B; text-align: center; line-height: 1.5; margin: 0; max-width: 220px; }
+</style>
+</helmet>
+
+<div style="width: 100%; min-height: 680px; background: #FAFAF8; color: #1A1A1A; box-sizing: border-box; padding: 48px;">
+
+  <h1 style="margin: 0 0 4px; font-size: 20px; font-weight: 700;">Logo directions</h1>
+  <p style="margin: 0 0 28px; font-size: 13px; color: #6B6B6B;">Each shown on cream and on dark, at small size. "Furqon" means the criterion that distinguishes truth from falsehood — a few of these lean into that idea.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+
+    <!-- A: Refined star -->
+    <div class="lg-card">
+      <div class="lg-swatches">
+        <div class="lg-swatch" style="background: #FAFAF8;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <g fill="none" stroke="#C9A24D" stroke-width="1.5">
+              <rect x="5.2" y="5.2" width="13.6" height="13.6"></rect>
+              <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"></rect>
+            </g>
+            <circle cx="12" cy="12" r="1.6" fill="#C9A24D"></circle>
+          </svg>
+        </div>
+        <div class="lg-swatch" style="background: #1A1A1A;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <g fill="none" stroke="#C9A24D" stroke-width="1.5">
+              <rect x="5.2" y="5.2" width="13.6" height="13.6"></rect>
+              <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"></rect>
+            </g>
+            <circle cx="12" cy="12" r="1.6" fill="#C9A24D"></circle>
+          </svg>
+        </div>
+      </div>
+      <p class="lg-name">A — Refined star</p>
+      <p class="lg-desc">Your original, with a center dot added so it still reads at 16px favicon size.</p>
+    </div>
+
+    <!-- B: Furqan crescent -->
+    <div class="lg-card">
+      <div class="lg-swatches">
+        <div class="lg-swatch" style="background: #FAFAF8;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <path d="M14 3.5A9 9 0 1 0 14 20.5A7 7 0 0 1 14 3.5Z" fill="#C9A24D"></path>
+            <line x1="12" y1="2" x2="12" y2="22" stroke="#C9A24D" stroke-width="1" stroke-dasharray="1.5 2.5"></line>
+          </svg>
+        </div>
+        <div class="lg-swatch" style="background: #1A1A1A;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <path d="M14 3.5A9 9 0 1 0 14 20.5A7 7 0 0 1 14 3.5Z" fill="#C9A24D"></path>
+            <line x1="12" y1="2" x2="12" y2="22" stroke="#C9A24D" stroke-width="1" stroke-dasharray="1.5 2.5"></line>
+          </svg>
+        </div>
+      </div>
+      <p class="lg-name">B — Furqan crescent</p>
+      <p class="lg-desc">A crescent with a dotted dividing line through it — the "criterion" cutting through, literally.</p>
+    </div>
+
+    <!-- C: Open book + light -->
+    <div class="lg-card">
+      <div class="lg-swatches">
+        <div class="lg-swatch" style="background: #FAFAF8;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <g fill="none" stroke="#C9A24D" stroke-width="1.4" stroke-linecap="round">
+              <path d="M12 18c-4.5-3-9-3-9-9.5C3 5 6.5 5 12 9c5.5-4 9-4 9-0.5C21 15 16.5 15 12 18Z"></path>
+              <path d="M12 9V3.5"></path>
+              <path d="M8.3 5.3L12 9"></path>
+              <path d="M15.7 5.3L12 9"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="lg-swatch" style="background: #1A1A1A;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <g fill="none" stroke="#C9A24D" stroke-width="1.4" stroke-linecap="round">
+              <path d="M12 18c-4.5-3-9-3-9-9.5C3 5 6.5 5 12 9c5.5-4 9-4 9-0.5C21 15 16.5 15 12 18Z"></path>
+              <path d="M12 9V3.5"></path>
+              <path d="M8.3 5.3L12 9"></path>
+              <path d="M15.7 5.3L12 9"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <p class="lg-name">C — Open book, rising light</p>
+      <p class="lg-desc">An open mushaf with three light rays rising from the spine — revelation imagery, warmer and more literal.</p>
+    </div>
+
+    <!-- D: Split disc -->
+    <div class="lg-card">
+      <div class="lg-swatches">
+        <div class="lg-swatch" style="background: #FAFAF8;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="#C9A24D" stroke-width="1.5"></circle>
+            <path d="M12 3A9 9 0 0 1 12 21Z" fill="#C9A24D"></path>
+          </svg>
+        </div>
+        <div class="lg-swatch" style="background: #1A1A1A;">
+          <svg width="40" height="40" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="#C9A24D" stroke-width="1.5"></circle>
+            <path d="M12 3A9 9 0 0 1 12 21Z" fill="#C9A24D"></path>
+          </svg>
+        </div>
+      </div>
+      <p class="lg-name">D — Split disc</p>
+      <p class="lg-desc">Half solid, half outline — the most literal "distinguisher between two things" mark. Very minimal, scales tiny.</p>
+    </div>
+
+  </div>
+
+  <p style="margin: 28px 0 0; font-size: 12.5px; color: #A8A49A;">Tell me which direction (or mix of two) you want refined and dropped into the header.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1200,"height":680}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

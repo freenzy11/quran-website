@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" data-tajwid="on">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al-Furqon — Read &amp; Memorize</title>
+  <meta name="description" content="Read the Qur’an page by page like a printed mushaf, or memorize it ayah by ayah with transliteration, repetition and hidden-text testing.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/reader.css">
+  <link rel="stylesheet" href="../css/mushaf.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-page="quran" class="mode-read">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="Al-Furqon home">
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5.2" y="5.2" width="13.6" height="13.6"/>
+            <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"/>
+          </g>
+          <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">Al-Furqon</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="../index.html" data-nav="home">Home</a></li>
+          <li><a href="quran.html" data-nav="quran">Quran</a></li>
+          <li><a href="statistics.html" data-nav="statistics">Statistics</a></li>
+          <li><a href="login.html" data-nav="login">Sign in</a></li>
+          <li class="site-menu-wrap">
+            <button type="button" id="site-menu-toggle" class="nav-icon-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-settings-label">Menu</span>
+            </button>
+            <div class="site-menu" id="site-menu" role="menu" aria-label="Main menu" hidden>
+              <a href="login.html" role="menuitem">Profile</a>
+              <button type="button" role="menuitem" data-menu-settings data-settings-href="settings.html">Settings</button>
+              <a href="mailto:alfurqon.contact@gmail.com" role="menuitem">Contact us</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Ayah progress line. Shared by both modes; the label follows the mode. -->
+    <div class="khatm-line" id="khatm-line" hidden>
+      <div class="container">
+        <p class="khatm-line-text"><span id="khatm-line-label"></span>
+          <a class="khatm-line-link" href="statistics.html">Statistics</a>
+        </p>
+        <div class="khatm-line-track" id="read-progress" role="progressbar"
+             aria-label="Ayahs marked as read" aria-valuemin="0"
+             aria-valuemax="6236" aria-valuenow="0">
+          <span class="khatm-line-fill" id="khatm-line-fill"></span>
+        </div>
+        <p class="surah-read-line" id="surah-read-line" hidden>
+          <span id="surah-read-label"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- One compact toolbar for both modes. Settings sits in the side drawer. -->
+    <div class="reader-toolbar" id="main-toolbar" role="region" aria-label="Qur’an controls">
+      <div class="container toolbar-inner">
+        <div class="toolbar-row toolbar-row-main">
+          <button type="button" id="index-toggle" class="tool-btn index-toggle"
+                  aria-expanded="false" aria-controls="surah-index" aria-label="Open Qur’an index">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="tool-icon">
+              <path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="label">Qur’an index</span>
+          </button>
+          <div class="mode-switch" role="group" aria-label="Choose mode">
+            <button type="button" id="mode-read" class="mode-btn" aria-pressed="true">Read</button>
+            <button type="button" id="mode-memorize" class="mode-btn" aria-pressed="false">Memorize</button>
+          </div>
+          <button type="button" id="play-toggle" class="tool-btn tool-btn-accent" aria-pressed="false" aria-label="Play recitation">
+            <svg class="tool-icon icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 5.5v13l11-6.5z" fill="currentColor"/></svg>
+            <svg class="tool-icon icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5h3.2v14H8zM12.8 5H16v14h-3.2z" fill="currentColor"/></svg>
+            <span class="label">Play</span>
+          </button>
+        </div>
+
+        <div class="toolbar-row toolbar-row-tools">
+          <label class="visually-hidden" for="repeat-select">Repeat each ayah</label>
+          <select id="repeat-select" class="tool-select" data-trigger-label="Repeat"></select>
+          <label class="visually-hidden" for="speed-select">Audio speed</label>
+          <select id="speed-select" class="tool-select" data-trigger-label="Speed"></select>
+          <button type="button" id="focus-toggle" class="tool-btn"
+                  aria-pressed="false" aria-label="Enter focus mode"
+                  title="Show only the Qur’an — hide the site navigation and controls">
+            <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"
+                    fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="label">Focus</span>
+          </button>
+          <button type="button" id="quick-settings-toggle" class="tool-btn"
+                  aria-controls="quick-settings-drawer" aria-expanded="false" aria-label="Customize">
+            <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="label">Customize</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ READ MODE — a mushaf page at a time ============ -->
+    <section id="read-view" class="read-view" aria-label="Read mode">
+      <div class="container read-container">
+        <article class="mushaf" id="mushaf" aria-live="polite">
+          <div class="reader-state" role="status">
+            <span class="reader-spinner" aria-hidden="true"></span>
+            <p>Loading the Qur’an&hellip;</p>
+          </div>
+        </article>
+
+        <!-- Only shown while a khatm is active -->
+        <div class="mark-page-row" id="mark-page-row" hidden>
+          <button type="button" id="mark-page" class="mark-page-btn" aria-pressed="false">
+            Mark page as read
+          </button>
+        </div>
+
+        <nav class="page-nav" aria-label="Turn pages">
+          <button type="button" id="page-next" class="page-nav-btn">
+            <span aria-hidden="true">&larr;</span><span class="visually-hidden">Next page</span>
+          </button>
+          <span class="page-position" id="page-position">Page 1 of 604</span>
+          <button type="button" id="page-prev" class="page-nav-btn">
+            <span aria-hidden="true">&rarr;</span><span class="visually-hidden">Previous page</span>
+          </button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ============ MEMORIZE MODE — study tools ============ -->
+    <section id="memorize-view" class="memorize-view" aria-label="Memorize mode" hidden>
+      <div class="container">
+        <article class="surah-reader" id="surah-reader" aria-live="polite">
+          <div class="reader-state" role="status">
+            <span class="reader-spinner" aria-hidden="true"></span>
+            <p>Loading the Qur’an&hellip;</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Qur'an index: Surah / Juz / Page slide-over drawer, shared by both modes -->
+    <aside class="surah-index" id="surah-index" aria-label="Qur’an index" hidden>
+      <div class="surah-index-panel">
+        <div class="index-head">
+          <span class="section-label">Qur’an index</span>
+          <button type="button" id="index-close" class="index-close" aria-label="Close Qur’an index">&times;</button>
+        </div>
+        <div class="index-tabs" id="index-tabs" role="tablist" aria-label="Choose index">
+          <button type="button" class="index-tab is-active" data-index-tab="surah"
+                  role="tab" aria-selected="true" aria-controls="surah-list">Surah</button>
+          <button type="button" class="index-tab" data-index-tab="juz"
+                  role="tab" aria-selected="false" aria-controls="surah-list">Juz</button>
+          <button type="button" class="index-tab" data-index-tab="page"
+                  role="tab" aria-selected="false" aria-controls="surah-list">Page</button>
+        </div>
+        <label class="visually-hidden" for="index-search">Search the Qur’an index</label>
+        <input type="search" id="index-search" class="index-search"
+               placeholder="Search 114 surahs…" autocomplete="off">
+        <ul class="surah-list" id="surah-list" role="tabpanel" aria-label="Index results">
+          <!-- Rendered by js/reader.js from SURAHS metadata -->
+        </ul>
+      </div>
+    </aside>
+    <div class="index-backdrop" id="index-backdrop" hidden></div>
+
+    <!-- Settings drawer: a right-side slide-over with the choices that
+         can change while reading or listening. -->
+    <aside class="settings-drawer quick-settings-drawer" id="quick-settings-drawer"
+           aria-label="Settings" hidden>
+      <div class="settings-panel quick-settings-panel">
+        <div class="index-head">
+          <span class="section-label">Settings</span>
+          <button type="button" id="quick-settings-close" class="index-close" aria-label="Close settings">&times;</button>
+        </div>
+
+        <div class="index-tabs settings-tabs" id="settings-tabs" role="tablist" aria-label="Settings sections">
+          <button type="button" id="settings-tab-display" class="index-tab is-active"
+                  data-settings-tab="display" role="tab" aria-selected="true"
+                  aria-controls="settings-display" tabindex="0">Display</button>
+          <button type="button" id="settings-tab-audio" class="index-tab"
+                  data-settings-tab="audio" role="tab" aria-selected="false"
+                  aria-controls="settings-audio" tabindex="-1">Audio</button>
+        </div>
+
+        <div class="quick-settings-list">
+          <section class="quick-settings-section settings-tab-panel" id="settings-display"
+                   role="tabpanel" aria-labelledby="settings-tab-display"
+                   data-settings-panel="display">
+            <section class="display-preview-section" id="display-preview-section"
+                     aria-labelledby="display-preview-title">
+              <div class="preview-heading">
+                <p class="quick-settings-title" id="display-preview-title">Live preview</p>
+                <span class="preview-ref">Al-Faatiha 1:7</span>
+              </div>
+              <div class="display-preview" id="display-preview">
+                <p class="preview-arabic" id="preview-arabic" lang="ar" dir="rtl" translate="no"></p>
+                <div class="preview-wbw" id="preview-wbw" aria-label="Word-by-word meanings" lang="en"></div>
+                <p class="preview-translit" id="preview-translit">Sirāta alladhīna anʿamta ʿalayhim ghayri al-maghḍūbi ʿalayhim wa-lā aḍ-ḍāllīn</p>
+                <p class="preview-translation" id="preview-translation">The path of those upon whom You have bestowed favor, not of those who have evoked anger or of those who are astray.</p>
+              </div>
+            </section>
+
+            <div class="control-grid" aria-label="Text settings">
+              <div class="control-tile">
+                <label class="control-tile-label" for="setting-translation">Translation</label>
+                <select id="setting-translation" class="select--box"></select>
+              </div>
+              <div class="control-tile">
+                <span class="control-tile-label" id="arabic-size-label">Text size</span>
+                <div class="size-control" role="group" aria-labelledby="arabic-size-label">
+                  <button type="button" class="font-smaller" aria-label="Smaller Arabic text">A&minus;</button>
+                  <button type="button" class="font-larger" aria-label="Larger Arabic text">A+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="chip-grid" aria-label="Display switches">
+              <button type="button" id="translation-toggle" class="settings-row setting-chip setting-chip--wide"
+                      aria-pressed="false" title="Show or hide the translation in the surah and preview">
+                <span class="settings-row-copy">
+                  <span class="settings-row-title">Translation</span>
+                </span>
+                <span class="settings-switch" aria-hidden="true"></span>
+              </button>
+              <button type="button" id="setting-tajwid" class="settings-row setting-chip"
+                      aria-pressed="false" title="Official QCF Tajwid colours">
+                <span class="settings-row-copy">
+                  <span class="settings-row-title">Tajwid</span>
+                </span>
+                <span class="settings-switch" aria-hidden="true"></span>
+              </button>
+              <button type="button" id="setting-wordbyword" class="settings-row setting-chip"
+                      aria-pressed="false" title="English meaning above each word in Memorize mode">
+                <span class="settings-row-copy">
+                  <span class="settings-row-title">Word meanings</span>
+                </span>
+                <span class="settings-switch" aria-hidden="true"></span>
+              </button>
+              <button type="button" id="setting-translit" class="settings-row setting-chip"
+                      aria-pressed="true" title="Word-by-word transliteration in Memorize mode">
+                <span class="settings-row-copy">
+                  <span class="settings-row-title">Transliteration</span>
+                </span>
+                <span class="settings-switch" aria-hidden="true"></span>
+              </button>
+              <button type="button" id="hide-text-toggle" class="settings-row setting-chip"
+                      aria-pressed="false" title="Blur the Arabic — tap an ayah to reveal it">
+                <span class="settings-row-copy">
+                  <span class="settings-row-title">Hide Arabic</span>
+                </span>
+                <span class="settings-switch" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p class="quick-settings-hint legend-link">
+              <a class="section-link" href="tajweed.html">Tajweed colour legend</a>
+            </p>
+          </section>
+
+          <section class="quick-settings-section settings-tab-panel" id="settings-audio"
+                   role="tabpanel" aria-labelledby="settings-tab-audio"
+                   data-settings-panel="audio" hidden>
+            <div class="control-grid">
+              <div class="control-tile control-tile--wide">
+                <label class="control-tile-label" for="setting-reciter">Reciter</label>
+                <select id="setting-reciter" class="select--box"></select>
+              </div>
+            </div>
+            <button type="button" id="setting-autoplay" class="settings-row setting-chip setting-chip--wide"
+                    aria-pressed="false" title="Continue recitation into the next surah automatically">
+              <span class="settings-row-copy">
+                <span class="settings-row-title">Auto-play next surah</span>
+              </span>
+              <span class="settings-switch" aria-hidden="true"></span>
+            </button>
+          </section>
+        </div>
+      </div>
+    </aside>
+    <div class="settings-backdrop quick-settings-backdrop" id="quick-settings-backdrop" hidden></div>
+
+  </main>
+
+  <!-- Small audio bar (Read mode): verse-by-verse for the current page -->
+  <div class="audio-bar" id="audio-bar" role="region" aria-label="Page recitation" hidden>
+    <button type="button" id="audio-prev" class="audio-bar-btn" aria-label="Previous ayah">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.5 5.5v13l-11-6.5zM17.5 5h2v14h-2z" fill="currentColor"/></svg>
+    </button>
+    <button type="button" id="audio-toggle" class="audio-bar-btn audio-bar-play" aria-label="Play this page">
+      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 5.5v13l11-6.5z" fill="currentColor"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5h3.2v14H8zM12.8 5H16v14h-3.2z" fill="currentColor"/></svg>
+    </button>
+    <button type="button" id="audio-next" class="audio-bar-btn" aria-label="Next ayah">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 5.5v13l11-6.5z" fill="currentColor"/></svg>
+    </button>
+    <span class="audio-bar-label" id="audio-bar-label">Ready</span>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-note">Qur’an text, Tajweed annotations and translations are provided by <a href="https://quran.foundation/" rel="noopener noreferrer">Quran Foundation</a>.<span id="content-credits"></span></p>
+      <p class="footer-note"><a class="section-link" href="about.html">About and credits</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+      <p class="footer-copy">© <span id="footer-year"></span> Al-Furqon — a personal Qur’an companion.</p>
+    </div>
+  </footer>
+
+  <p class="reader-toast" id="reader-toast" role="status" aria-live="polite"></p>
+
+  <button type="button" id="focus-exit" class="focus-exit" hidden aria-label="Exit focus mode">
+    <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+            fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Exit focus</span>
+  </button>
+
+  <script src="../js/surahs.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/tajwid.js"></script>
+  <script src="../js/quran-api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/selects.js"></script>
+  <script src="../js/arabic-font.js"></script>
+  <script src="../js/qcf-font.js"></script>
+  <script src="../js/more-settings.js"></script>
+  <script src="../js/timings.js"></script>
+  <script src="../js/word-audio.js"></script>
+  <script src="../js/mushaf.js"></script>
+  <script src="../js/reader.js"></script>
+  <script src="../js/quran-page.js"></script>
+</body>
+</html>

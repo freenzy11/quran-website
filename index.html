@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al-Furqon — Read, Memorize, Complete</title>
+  <meta name="description" content="Al-Furqon is a calm, focused space for reading the Qur’an, tracking memorization, and completing Khatm.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tracker.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Al-Furqon home">
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5.2" y="5.2" width="13.6" height="13.6"/>
+            <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"/>
+          </g>
+          <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">Al-Furqon</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" data-nav="home">Home</a></li>
+          <li><a href="pages/quran.html" data-nav="quran">Quran</a></li>
+          <li><a href="pages/statistics.html" data-nav="statistics">Statistics</a></li>
+          <li><a href="pages/login.html" data-nav="login">Sign in</a></li>
+          <li class="site-menu-wrap">
+            <button type="button" id="site-menu-toggle" class="nav-icon-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-settings-label">Menu</span>
+            </button>
+            <div class="site-menu" id="site-menu" role="menu" aria-label="Main menu" hidden>
+              <a href="pages/login.html" role="menuitem">Profile</a>
+              <button type="button" role="menuitem" data-menu-settings data-settings-href="pages/settings.html">Settings</button>
+              <a href="mailto:alfurqon.contact@gmail.com" role="menuitem">Contact us</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Opening -->
+    <section class="opening container" aria-label="Welcome">
+      <svg class="opening-star" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="5.2" y="5.2" width="13.6" height="13.6"/>
+          <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"/>
+        </g>
+        <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+      </svg>
+      <p class="opening-bismillah" lang="ar" dir="rtl" translate="no">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <p class="opening-eyebrow">As-salāmu ʿalaykum</p>
+      <h1 class="opening-greeting" id="greeting">Peace be upon you</h1>
+      <p class="opening-date">
+        <span id="date-gregorian"></span>
+        <span class="date-sep" aria-hidden="true">·</span>
+        <span id="date-hijri"></span>
+      </p>
+    </section>
+
+    <!-- Continue reading -->
+    <section class="continue container" aria-labelledby="continue-title">
+      <h2 class="section-label" id="continue-title">Continue reading</h2>
+      <div id="continue-body">
+        <!-- Rendered by js/app.js from the stored reading position -->
+      </div>
+    </section>
+
+    <!-- Bookmarks -->
+    <section class="bookmarks container" id="bookmarks-section" aria-labelledby="bookmarks-title" hidden>
+      <h2 class="section-label" id="bookmarks-title">Bookmarks</h2>
+      <ul class="bookmark-list" id="bookmarks-body"></ul>
+    </section>
+
+    <!-- Progress overview -->
+    <section class="progress-overview container" aria-labelledby="progress-title">
+      <div class="section-head-row">
+        <h2 class="section-label" id="progress-title">Your progress</h2>
+        <a class="section-link" href="pages/statistics.html">Statistics<span class="section-link-arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div class="progress-grid">
+        <div class="progress-block">
+          <span class="progress-num" id="stat-memorized">0</span>
+          <span class="progress-label">Ayahs memorized</span>
+          <div class="progress-bar" role="img" aria-label="Memorization progress bar"><span class="progress-fill" id="bar-memorized"></span></div>
+          <span class="progress-hint" id="hint-memorized">of 6,236 ayahs</span>
+        </div>
+        <div class="progress-block" id="khatm-block" hidden>
+          <span class="progress-num" id="stat-khatm">—</span>
+          <span class="progress-label">Khatm</span>
+          <div class="progress-bar" role="img" aria-label="Khatm progress bar"><span class="progress-fill" id="bar-khatm"></span></div>
+          <span class="progress-hint" id="hint-khatm"></span>
+        </div>
+        <div class="progress-block">
+          <span class="progress-num" id="stat-today">—</span>
+          <span class="progress-label">Today’s goal</span>
+          <div class="progress-bar" role="img" aria-label="Daily goal progress bar"><span class="progress-fill" id="bar-today"></span></div>
+          <span class="progress-hint" id="hint-today">Set a daily goal in Settings</span>
+        </div>
+      </div>
+    </section>
+
+    </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-note">Qur’an text and recitation are provided by <a href="https://quran.foundation/" rel="noopener noreferrer">Quran Foundation</a>; reciters are credited in About and credits.</p>
+      <p class="footer-note"><a class="section-link" href="pages/about.html">About and credits</a> · <a href="pages/privacy.html">Privacy</a> · <a href="pages/terms.html">Terms</a></p>
+      <p class="footer-copy">© <span id="footer-year"></span> Al-Furqon — a personal Qur’an companion.</p>
+    </div>
+  </footer>
+
+  <script src="js/surahs.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

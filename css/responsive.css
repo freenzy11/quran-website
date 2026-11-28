@@ -1,0 +1,214 @@
+/* ============================================================
+   responsive.css — laptop, tablet, mobile adaptations
+   ============================================================ */
+
+/* --- Large tablets / small laptops --- */
+@media (max-width: 1024px) {
+  .nav-menu { gap: 28px; }
+  .continue-name { font-size: 32px; }
+  .continue-arabic { font-size: 29px; }
+}
+
+/* --- Tablet / large phones: nav collapses --- */
+@media (max-width: 860px) {
+  .nav-toggle { display: inline-flex; }
+
+  .nav-menu {
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 6px 24px 18px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 12px 24px rgba(26, 26, 26, 0.04);
+  }
+  .nav-menu.open { display: flex; }
+
+  .nav-menu a {
+    display: block;
+    padding: 14px 0;
+    font-size: 17px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-menu li:last-child a { border-bottom: 0; }
+  .nav-menu a::after { content: none; }
+  .nav-menu a[aria-current="page"] { color: var(--gold-deep); }
+  .nav-menu .nav-icon-btn {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+    border-radius: 0;
+  }
+  .nav-menu .nav-icon-btn:hover { background: none; }
+  .nav-settings-label { display: inline; font-size: 17px; }
+
+  .nav-menu .site-menu {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    padding: 0 0 8px 12px;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: var(--bg);
+  }
+
+  .opening { padding: 64px 0 60px; }
+  .opening-bismillah { font-size: 26px; margin-bottom: 36px; }
+  .opening-greeting { font-size: clamp(34px, 8vw, 44px); }
+
+  .continue-current,
+  .continue-empty {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .progress-grid { grid-template-columns: 1fr; }
+  .progress-block { padding-right: 0; }
+  .progress-block + .progress-block {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 30px;
+    margin-top: 30px;
+  }
+}
+
+/* --- Phones --- */
+@media (max-width: 560px) {
+  .container { width: calc(100% - 40px); }
+
+  .opening { padding: 52px 0 52px; }
+  .opening-star { width: 22px; height: 22px; margin-bottom: 24px; }
+  .opening-bismillah { font-size: 23px; margin-bottom: 30px; }
+  .opening-eyebrow { font-size: 11px; }
+  .opening-greeting { font-size: clamp(30px, 9vw, 36px); }
+  .opening-date { font-size: 14px; }
+
+  .continue      { padding: 48px 0 52px; }
+  .pathways      { padding: 48px 0 52px; }
+  .progress-overview { padding: 48px 0 72px; }
+
+  .continue-name { font-size: 27px; }
+  .continue-arabic { font-size: 25px; }
+  .continue-surah { gap: 14px; }
+
+  .pathway {
+    grid-template-columns: 44px 1fr auto;
+    gap: 16px;
+    padding: 26px 0;
+  }
+  .pathway-list li:first-child .pathway { margin-top: 20px; }
+  .pathway-num { font-size: 12px; }
+  .pathway-title { font-size: 19px; }
+  .pathway-desc { font-size: 14px; }
+  .pathway-arrow { width: 20px; height: 20px; }
+
+  .progress-num { font-size: 38px; }
+  .progress-bar { max-width: none; }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 30px 0 40px;
+  }
+}
+
+/* ============================================================
+   Reader page (pages/quran.html)
+   The index and settings drawers slide over at all widths
+   (css/mushaf.css) — only the toolbars adapt here.
+   ============================================================ */
+
+/* --- Tablet / large phones --- */
+@media (max-width: 860px) {
+  .toolbar-inner { min-height: 54px; gap: 8px; }
+  .tool-btn { min-height: 44px; padding: 7px 13px; font-size: 13px; }
+  .size-control button { height: 44px; }
+
+  .surah-head { padding-top: 20px; }
+  .surah-pager { margin-top: 32px; }
+}
+
+/* --- Phones --- */
+@media (max-width: 560px) {
+  .reader-toolbar { top: auto; position: static; }
+
+  /* Two compact rows: primary actions, then listener tools. */
+  .toolbar-inner { display: block; padding-top: 6px; padding-bottom: 8px; }
+  .toolbar-row { gap: 8px; }
+  .toolbar-row-main { margin-bottom: 8px; }
+  .toolbar-row-tools { justify-content: flex-start; }
+  .tool-btn .label { display: none; }
+  .select--underline .select-trigger { min-height: 44px; }
+  .select--underline { max-width: 128px; }
+  .select--underline .select-value { font-size: 13px; }
+
+  .surah-title-row { gap: 14px; }
+  .surah-meta { font-size: 13px; }
+
+  .bismillah { font-size: 26px; }
+
+  /* Slightly smaller Arabic at the same preference step */
+  .ayah-arabic {
+    font-size: calc(var(--ayah-arabic-size, 32px) - 4px);
+    line-height: 2.05;
+  }
+  .ayah-arabic.has-wbw {
+    gap: 13px 8px;
+    line-height: 1.8;
+  }
+  .wbw-column { max-width: 12ch; gap: 4px; }
+  .wbw-meaning { font-size: 11px; line-height: 1.45; }
+  .ayah-translation { font-size: 15px; }
+
+  .ayah { padding: 28px 8px 30px; }
+  .ayah-btn { width: 36px; height: 36px; }
+  .ayah { scroll-margin-top: calc(var(--header-h) + 8px); }
+  #memorize-view .container { padding-inline: 24px; }
+
+  .surah-pager { gap: 10px; }
+  .surah-pager .page-position { min-width: 98px; font-size: 12.5px; }
+}
+
+/* ============================================================
+   Tracker pages: Memorize, Khatm, Statistics
+   ============================================================ */
+
+@media (max-width: 860px) {
+  .page-head { padding: 56px 0 44px; }
+  .page-section { padding: 44px 0 50px; }
+  .track-row {
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    padding: 22px 0;
+  }
+  .track-row > :last-child {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .quick-log { gap: 8px; }
+  .track-manage { gap: 12px; }
+  .track-manage .select--box { max-width: 200px; }
+}
+
+@media (max-width: 560px) {
+  .page-head { padding: 44px 0 38px; }
+  .page-title { font-size: clamp(28px, 8vw, 34px); }
+  .field { gap: 10px; }
+  .field select { max-width: 100%; }
+  .field .select--box { max-width: 100%; }
+  .field .select--box .select-trigger { width: 100%; }
+  .field input[type="number"] { width: 96px; }
+  .track-name { font-size: 17px; }
+  .track-arabic { font-size: 18px; }
+  .day-row { grid-template-columns: 84px 1fr 48px; gap: 10px; }
+  .day-list { max-width: none; }
+}

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<script src="./_runtime/react.js"></script>
+<script src="./_runtime/react-dom.js"></script>
+<script src="./_runtime/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Amiri:wght@400;700&amp;display=swap">
+<style>
+  body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; }
+  a { color: #6B6B6B; }
+  a:hover { color: #1A1A1A; }
+  .qlogin-input::placeholder { color: #A8A49A; }
+  .qlogin-input:focus { outline: none; border-color: #C9A24D !important; }
+  .qlogin-google:hover { background: #F3EFE3 !important; }
+  .qlogin-primary:hover { background: #B8913E !important; }
+  @media (max-width: 860px) {
+    .qlogin-side { display: none !important; }
+    .qlogin-form-col { flex: 1 1 100% !important; max-width: 100% !important; }
+  }
+</style>
+</helmet>
+
+<div style="width: 100%; min-height: 900px; background: #FAFAF8; color: #1A1A1A; display: flex; flex-wrap: wrap;">
+
+  <!-- Left: brand / verse panel -->
+  <div class="qlogin-side" style="flex: 1 1 46%; min-width: 420px; background: #1A1A1A; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 56px; box-sizing: border-box; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(201,162,77,0.12), transparent 55%);"></div>
+
+    <div style="position: relative; display: flex; align-items: center; gap: 10px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#C9A24D" stroke-width="1.5">
+          <rect x="5.2" y="5.2" width="13.6" height="13.6"></rect>
+          <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"></rect>
+        </g>
+        <circle cx="12" cy="12" r="1.6" fill="#C9A24D"></circle>
+      </svg>
+      <span style="font-size: 16px; font-weight: 700; color: #FAFAF8; letter-spacing: 0.01em;">Al-Furqon</span>
+    </div>
+
+    <div style="position: relative;">
+      <p style="font-family: 'Amiri', serif; font-size: 34px; line-height: 1.9; color: #F3EFE3; margin: 0 0 20px; direction: rtl;">
+        وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا
+      </p>
+      <p style="margin: 0; font-size: 14px; color: #A8A49A; line-height: 1.6; max-width: 420px;">
+        "And recite the Qur'an with measured recitation."<br>Surah Al-Muzzammil, 73:4
+      </p>
+    </div>
+
+    <p style="position: relative; margin: 0; font-size: 12.5px; color: #6B6B6B;">© 2026 Al-Furqon</p>
+  </div>
+
+  <!-- Right: login form -->
+  <div class="qlogin-form-col" style="flex: 1 1 54%; min-width: 420px; display: flex; align-items: center; justify-content: center; padding: 48px; box-sizing: border-box;">
+    <div style="width: 100%; max-width: 380px;">
+
+      <h1 style="margin: 0 0 6px; font-size: 24px; font-weight: 700; letter-spacing: -0.01em;">Welcome back</h1>
+      <p style="margin: 0 0 32px; font-size: 14px; color: #6B6B6B; line-height: 1.5;">Sign in to continue reading and memorizing</p>
+
+      <button class="qlogin-google" style="width: 100%; height: 48px; border-radius: 10px; border: 1px solid #E6E6E3; background: #FFFFFF; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: inherit; font-size: 14px; font-weight: 600; color: #1A1A1A; cursor: pointer; transition: background 0.15s;">
+        <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34.5 6 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"></path>
+          <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34.5 6 29.6 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"></path>
+          <path fill="#4CAF50" d="M24 44c5.5 0 10.4-2.1 14.1-5.6l-6.5-5.5C29.6 34.7 26.9 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.6 39.6 16.2 44 24 44z"></path>
+          <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C40.9 36.5 44 31 44 24c0-1.3-.1-2.7-.4-3.5z"></path>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 12px; width: 100%; margin: 22px 0;">
+        <div style="flex: 1; height: 1px; background: #E6E6E3;"></div>
+        <span style="font-size: 12px; color: #A8A49A;">or</span>
+        <div style="flex: 1; height: 1px; background: #E6E6E3;"></div>
+      </div>
+
+      <div style="width: 100%; display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;">
+        <label for="qlogin-email" style="font-size: 13px; font-weight: 600;">Email</label>
+        <input id="qlogin-email" class="qlogin-input" type="email" placeholder="you@example.com" style="width: 100%; height: 46px; box-sizing: border-box; border-radius: 10px; border: 1px solid #E6E6E3; background: #FFFFFF; padding: 0 14px; font-family: inherit; font-size: 14px; color: #1A1A1A;">
+      </div>
+
+      <button class="qlogin-primary" style="width: 100%; height: 48px; border-radius: 10px; border: none; background: #C9A24D; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 20px; transition: background 0.15s;">
+        Send sign-in code
+      </button>
+
+      <p style="margin: 0 0 28px; font-size: 12px; color: #A8A49A; text-align: center; line-height: 1.6;">
+        No password needed — we'll email you a one-time code.
+      </p>
+
+      <p style="margin: 0; font-size: 12.5px; color: #6B6B6B; text-align: center; line-height: 1.6;">
+        By continuing you agree to our <a href="Terms.dc.html">Terms</a> and <a href="Privacy.dc.html">Privacy Policy</a>.
+      </p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

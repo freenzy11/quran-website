@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About and credits — Al-Furqon</title>
+  <meta name="description" content="About Al-Furqon: Qur’an text, recitation credits and how your progress is stored.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/tracker.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-page="about">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="Al-Furqon home">
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5.2" y="5.2" width="13.6" height="13.6"/>
+            <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"/>
+          </g>
+          <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">Al-Furqon</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="../index.html" data-nav="home">Home</a></li>
+          <li><a href="quran.html" data-nav="quran">Quran</a></li>
+          <li><a href="statistics.html" data-nav="statistics">Statistics</a></li>
+          <li><a href="login.html" data-nav="login">Sign in</a></li>
+          <li class="site-menu-wrap">
+            <button type="button" id="site-menu-toggle" class="nav-icon-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-settings-label">Menu</span>
+            </button>
+            <div class="site-menu" id="site-menu" role="menu" aria-label="Main menu" hidden>
+              <a href="login.html" role="menuitem">Profile</a>
+              <button type="button" role="menuitem" data-menu-settings data-settings-href="settings.html">Settings</button>
+              <a href="mailto:alfurqon.contact@gmail.com" role="menuitem">Contact us</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container page-head">
+      <p class="page-eyebrow">About</p>
+      <h1 class="page-title">About and credits</h1>
+      <p class="page-lede">Al-Furqon is a free reading, memorizing and khatm companion. No account or ads today.</p>
+    </div>
+    <section class="page-section"><div class="container">
+      <p class="section-label">Qur&rsquo;an text</p>
+      <p class="stat-note">Arabic text (Uthmani, mushaf pages 1&ndash;604 for Read mode), word-by-word transliteration, Tajweed annotations and your chosen translation are provided by the Quran Foundation Content APIs. The translation author and selected reciter are credited with the content. Automatic browser translation is switched off so the vetted translations stay as their authors intended.</p>
+      <p class="stat-note">Qur&rsquo;anic glyphs use the QCF V4 (Tajwid on) or QCF V2 (Tajwid off) page font supplied by Quran Foundation; Amiri is only a fallback while a page font loads. Tajwid colours are a lightweight visual guide derived from the written text, not a certified tajwid mushaf.</p>
+    </div></section>
+    <section class="page-section"><div class="container">
+      <p class="section-label">Recitation</p>
+      <p class="stat-note">Streamed recitations belong to the reciter you select &mdash; Mishary Alafasy, Mahmoud Al-Husary or Mohamed Al-Minshawi. The older Ali Al-Hudhaify preference is still accepted, but Quran Foundation does not publish his ayah-by-ayah audio, so that choice falls back to Mishary Alafasy. Thank you to the reciters for their audio; verse and word clips are streamed on demand and never copied to this site.</p>
+    </div></section>
+    <section class="page-section"><div class="container">
+      <p class="section-label">Your data</p>
+      <p class="stat-note">Bookmarks, memorized ayahs, khatm and statistics are saved only in this browser. Clearing the browser&rsquo;s site data removes them.</p>
+    </div></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-note">Memorization records are stored privately in this browser only.</p>
+      <p class="footer-note"><a class="section-link" href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:alfurqon.contact@gmail.com">Contact</a></p>
+      <p class="footer-copy">© <span id="footer-year"></span> Al-Furqon — a personal Qur’an companion.</p>
+    </div>
+  </footer>
+
+  <script src="../js/surahs.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/navigation.js"></script>
+      </body>
+</html>

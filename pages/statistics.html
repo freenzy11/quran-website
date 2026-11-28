@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Statistics — Al-Furqon</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="../css/statistics.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="../index.html" aria-label="Al-Furqon home">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="5.2" y="5.2" width="13.6" height="13.6"></rect>
+        <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"></rect>
+      </g>
+      <circle cx="12" cy="12" r="1.6" fill="currentColor"></circle>
+    </svg>
+    <span>Al-Furqon</span>
+  </a>
+  <nav aria-label="Main">
+    <a href="../index.html">Home</a>
+    <a href="quran.html">Quran</a>
+    <a href="statistics.html" aria-current="page">Statistics</a>
+    <a href="login.html">Sign in</a>
+    <div class="site-menu-wrap">
+      <button type="button" id="site-menu-toggle" class="nav-icon-btn stats-menu-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="site-menu" id="site-menu" role="menu" aria-label="Main menu" hidden>
+        <a href="login.html" role="menuitem">Profile</a>
+        <button type="button" role="menuitem" data-menu-settings data-settings-href="settings.html">Settings</button>
+        <a href="mailto:alfurqon.contact@gmail.com" role="menuitem">Contact us</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="page" id="main">
+  <div class="head">
+    <div><p class="muted">Qur’an</p><h1>Your progress</h1></div>
+    <div class="seg" role="group" aria-label="Time range">
+      <button type="button" data-range="week" aria-pressed="false">Week</button>
+      <button type="button" data-range="month" aria-pressed="true">Month</button>
+      <button type="button" data-range="all" aria-pressed="false">All time</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="card ring" aria-label="Memorized">
+      <svg viewBox="0 0 120 120" width="96" height="96" role="img" id="ring" aria-label="Memorized progress">
+        <circle cx="60" cy="60" r="50" class="ring-bg"/>
+        <circle cx="60" cy="60" r="50" class="ring-arc" id="ring-arc" transform="rotate(-90 60 60)"/>
+        <text x="60" y="68" text-anchor="middle" id="ring-pct">0%</text>
+      </svg>
+      <div>
+        <p class="muted">Memorized</p>
+        <p class="num"><span id="mem-surahs">0</span> <small>of 114 surahs</small></p>
+        <p class="muted small" id="mem-note"></p>
+      </div>
+    </section>
+
+    <section class="card streak" aria-label="Streak">
+      <div class="row between">
+        <div class="row gap">
+          <span class="flame" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 .3 1.2 1 2 2 2 0-3-.5-5 1-8z"/></svg></span>
+          <div><p class="big" id="streak">0</p><p class="muted">day streak</p></div>
+        </div>
+        <div class="right"><p class="muted">Best</p><p class="num sm" id="best">0 days</p></div>
+      </div>
+      <div class="dots" id="dots"></div>
+      <div class="chips">
+        <div class="chip"><p class="num sm" id="chip-days">0</p><p class="muted">days read</p></div>
+        <div class="chip"><p class="num sm" id="chip-ayahs">0</p><p class="muted" id="chip-ayahs-label">ayahs</p></div>
+      </div>
+    </section>
+
+    <section class="card week" aria-label="This week">
+      <div class="row between"><h2>This week</h2><p class="muted" id="week-sum"></p></div>
+      <div class="bars" id="bars" role="img" aria-label="Ayahs read each day this week"></div>
+      <div class="bar-days" id="bar-days"></div>
+      <div class="row between legend-line"><span class="key"><i class="dash"></i><span id="goal-label">Daily goal</span></span><span class="muted" id="goal-hit"></span></div>
+    </section>
+
+    <section class="card khatm" id="khatm-card" aria-label="Khatm">
+      <div class="row between"><h2>Khatm</h2><span class="tag" id="khatm-tag" hidden></span></div>
+      <div id="khatm-body"></div>
+    </section>
+
+    <section class="card juz" aria-label="Juz map">
+      <div class="row between"><h2>Juz map</h2><p class="muted" id="juz-count"></p></div>
+      <p class="muted small">The gold line shows how much of each juz you memorized.</p>
+      <div class="juz-grid" id="juz-grid"></div>
+    </section>
+
+    <section class="card map" aria-label="Surah map">
+      <div class="row between"><h2>Surah map</h2><p class="muted" id="map-count"></p></div>
+      <div class="map-body">
+        <div class="map-view" id="map-view"><div class="map" id="map"></div></div>
+        <div class="map-side">
+          <div><p class="big" id="map-read">0</p><p class="muted">surahs read</p></div>
+          <div><p class="big" id="map-mem">0</p><p class="muted">surahs memorized</p></div>
+          <div><p class="big" id="map-left">0</p><p class="muted">surahs left to memorize</p></div>
+        </div>
+      </div>
+      <div class="legend">
+        <span class="key"><i class="sw sw-mem"></i>Memorized</span>
+        <span class="key"><i class="sw sw-read"></i>Read</span>
+        <span class="key"><i class="sw"></i>Not yet</span>
+      </div>
+      <p class="muted small">Each square is one surah, in order from 1 to 114 (left to right, top to bottom). A bigger square means more ayahs. Tap a square to open that surah. <span class="scroll-hint">Scroll inside the map to see every surah.</span></p>
+    </section>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <span>© <span id="footer-year"></span> Al-Furqon</span>
+  <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="mailto:alfurqon.contact@gmail.com">Contact</a></span>
+</footer>
+
+<script src="../js/surahs.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/navigation.js"></script>
+<script src="../js/statistics-data.js"></script>
+</body>
+</html>

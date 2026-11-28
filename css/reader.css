@@ -1,0 +1,995 @@
+/* ============================================================
+   reader.css — Read page: toolbar, surah index, ayah list,
+   playback & memorization states, loading/error states
+   ============================================================ */
+
+/* The Reader gets a wider measure: less empty margin on the
+   sides, more room for the surah index and the ayah text. */
+body[data-page="quran"] {
+  --container: 1400px;
+}
+
+/* --- Sticky toolbar ---------------------------------------- */
+.reader-toolbar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 30;
+  background: rgba(250, 250, 248, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  min-height: 58px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.toolbar-row-main { min-width: 0; }
+.toolbar-row-tools { position: relative; }
+
+/* The one Play button reflects whichever mode is active. */
+.tool-btn-accent .icon-pause { display: none; }
+.tool-btn-accent[aria-pressed="true"] .icon-play { display: none; }
+.tool-btn-accent[aria-pressed="true"] .icon-pause { display: block; }
+/* Settings is a right-side slide-over; these styles fill its panel. */
+.quick-settings-drawer .quick-settings-panel { overflow-y: auto; overscroll-behavior: contain; }
+/* Keep the tabs pinned while scrolling, but keep the original pill
+   design from .index-tabs / .index-tab in mushaf.css. The 3px inset
+   (1px border + 3px padding) makes the sliding highlight concentric
+   with the outer pill instead of a smaller box inside it. */
+.quick-settings-drawer .quick-settings-panel .settings-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  margin-top: 6px;
+  background: var(--bg);
+}
+.quick-settings-drawer .quick-settings-panel .settings-tabs::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 4px;
+  z-index: 0;
+  width: calc(50% - 5px);
+  border-radius: 999px;
+  background: var(--highlight);
+  transition: transform 0.25s ease;
+}
+.quick-settings-drawer .quick-settings-panel .settings-tabs[data-active="audio"]::after {
+  transform: translateX(calc(100% + 4px));
+}
+.quick-settings-drawer .quick-settings-panel .settings-tabs .index-tab {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+.quick-settings-drawer .quick-settings-panel .settings-tabs .index-tab.is-active,
+.quick-settings-drawer .quick-settings-panel .settings-tabs .index-tab[aria-selected="true"] {
+  background: transparent;
+  color: var(--gold-deep);
+}
+.quick-settings-drawer .quick-settings-panel .settings-tab-panel[hidden] { display: none; }
+.quick-settings-drawer .quick-settings-panel .quick-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+.quick-settings-drawer .quick-settings-panel .quick-settings-section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.quick-settings-drawer .quick-settings-panel .quick-settings-title {
+  margin: 0 2px 4px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.quick-settings-drawer .quick-settings-panel .quick-settings-field {
+  display: block;
+  margin: 2px 2px -2px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+.quick-settings-drawer .quick-settings-panel .select--box { width: 100%; }
+.quick-settings-drawer .quick-settings-panel .select-trigger {
+  width: 100%;
+  justify-content: space-between;
+}
+.quick-settings-drawer .quick-settings-panel .select--box .select-trigger {
+  min-height: 42px;
+  padding: 8px 12px;
+  font-size: 13.5px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+}
+.quick-settings-drawer .quick-settings-panel .select-trigger:hover {
+  border-color: var(--gold) !important;
+}
+.quick-settings-drawer .quick-settings-panel .select-trigger:focus-visible {
+  outline: 2px solid var(--gold) !important;
+  outline-offset: 2px !important;
+}
+/* The menu must line up with the trigger, not with the wider field tile.
+   Without this the popup can start at a different edge and look scattered. */
+.quick-settings-drawer .quick-settings-panel .select-menu {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  max-height: 240px;
+  padding: 6px;
+  border-radius: 12px;
+  box-shadow: 0 14px 36px rgba(26, 26, 26, 0.13);
+}
+.quick-settings-drawer .quick-settings-panel .select-option {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+.quick-settings-drawer .quick-settings-panel .select-option:hover,
+.quick-settings-drawer .quick-settings-panel .select-option[aria-selected="true"] {
+  background: var(--highlight);
+  color: var(--gold-deep);
+}
+.quick-settings-drawer .quick-settings-panel .settings-row {
+  min-height: 56px;
+  padding: 12px 14px;
+}
+.quick-settings-drawer .quick-settings-panel .settings-row-hint { font-size: 11.5px; }
+/* Fill the tile width without changing the original pill shape,
+   height, colours or focus treatment of the A− / A+ group. */
+.quick-settings-drawer .quick-settings-panel .size-control button {
+  flex: 1;
+}
+.quick-settings-drawer .quick-settings-panel .quick-settings-hint {
+  margin: 0 2px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+/* Drawer header */
+.quick-settings-drawer .quick-settings-panel .index-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.quick-settings-drawer .quick-settings-panel .section-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.quick-settings-drawer .quick-settings-panel .index-close {
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-soft);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.quick-settings-drawer .quick-settings-panel .index-close:hover {
+  color: var(--text) !important;
+  background: var(--highlight) !important;
+}
+.quick-settings-drawer .quick-settings-panel .index-close:focus-visible {
+  outline: 2px solid var(--gold) !important;
+  outline-offset: 2px !important;
+}
+
+/* Compact control tiles keep every Display choice in one short view. */
+.quick-settings-drawer .quick-settings-panel .control-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.quick-settings-drawer .quick-settings-panel .control-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+}
+.quick-settings-drawer .quick-settings-panel .control-tile--wide { grid-column: 1 / -1; }
+.quick-settings-drawer .quick-settings-panel .control-tile-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* Short switch chips replace the tall description rows. */
+.quick-settings-drawer .quick-settings-panel .chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 8px 12px;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip:hover {
+  background: var(--highlight) !important;
+  border-color: var(--gold) !important;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip:focus-visible {
+  outline: 2px solid var(--gold) !important;
+  outline-offset: 2px !important;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip .settings-row-copy { min-width: 0; }
+.quick-settings-drawer .quick-settings-panel .setting-chip .settings-row-title {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip .settings-switch {
+  flex-shrink: 0;
+  width: 38px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--border);
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip .settings-switch::after {
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1A1A1A;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: left 0.15s ease;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip[aria-pressed="true"] {
+  border-color: var(--gold) !important;
+  background: var(--highlight) !important;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip[aria-pressed="true"] .settings-switch {
+  background: var(--gold) !important;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip[aria-pressed="true"] .settings-switch::after {
+  left: 18px;
+  background: #1A1A1A;
+}
+.quick-settings-drawer .quick-settings-panel .setting-chip--wide { grid-column: 1 / -1; }
+.quick-settings-drawer .quick-settings-panel .legend-link { margin-top: -2px; }
+
+/* Pinned preview: it stays in view while the switches below change. */
+.display-preview-section {
+  position: sticky;
+  top: 46px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px 0 6px;
+  background: var(--bg);
+}
+.preview-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.preview-ref {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+.display-preview {
+  min-height: 220px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--bg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.preview-arabic {
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-arabic);
+  font-size: 26px;
+  line-height: 1.55;
+  min-height: 74px;
+  text-align: right;
+  direction: rtl;
+}
+.display-preview.is-text-hidden .preview-arabic {
+  filter: blur(7px);
+  opacity: 0.3;
+  user-select: none;
+}
+.wbw-word {
+  display: inline-block;
+  text-align: center;
+}
+.wbw-word > span {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.preview-wbw {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 2px 8px;
+  max-height: 32px;
+  overflow: hidden;
+  margin-top: 6px;
+  direction: rtl;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--gold-deep);
+}
+.display-preview.is-wordbyword-hidden .preview-wbw { display: none; }
+.preview-translit,
+.preview-translation {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--text-soft);
+}
+.display-preview.is-translit-hidden .preview-translit,
+.display-preview.is-translation-hidden .preview-translation {
+  display: none;
+}
+body.settings-drawer-open { overflow: hidden; }
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  color: var(--text-soft);
+  background: transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.tool-btn:hover {
+  color: var(--text);
+  border-color: var(--gold);
+}
+.tool-icon { width: 15px; height: 15px; }
+
+.tool-btn[aria-pressed="true"] {
+  background: var(--highlight);
+  border-color: var(--gold);
+  color: var(--gold-deep);
+}
+
+.tool-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.tool-btn:disabled:hover {
+  color: var(--text-soft);
+  border-color: var(--border);
+}
+
+/* The toolbar Settings button uses the shared .tool-btn styles above. */
+
+/* --- Focus mode: only the Qur’an stays on screen -------------------
+   The toolbar, header, progress, footer, index, drawers and audio bar
+   are all hidden. Page navigation and the floating exit button stay,
+   so reading can continue without any site chrome in the way. */
+body.focus-mode .site-header,
+body.focus-mode .khatm-line,
+body.focus-mode .reader-toolbar,
+body.focus-mode .site-footer,
+body.focus-mode .audio-bar,
+body.focus-mode .reader-toast,
+body.focus-mode .surah-index,
+body.focus-mode .index-backdrop,
+body.focus-mode .quick-settings-drawer,
+body.focus-mode .quick-settings-backdrop,
+body.focus-mode .skip-link {
+  display: none !important;
+}
+body.focus-mode #main { padding-top: 24px; }
+body.focus-mode .read-container { padding-top: 0; padding-bottom: 48px; }
+body.focus-mode .ayah { scroll-margin-top: 16px; }
+
+.focus-exit {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 120;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(250, 250, 248, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.focus-exit[hidden] { display: none; }
+.focus-exit:hover {
+  color: var(--gold-deep);
+  border-color: var(--gold);
+  background: var(--highlight);
+}
+.focus-exit:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.tool-select {
+  min-height: 40px;
+  padding: 8px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  cursor: pointer;
+}
+.tool-select:hover { color: var(--text); }
+.tool-select:focus-visible {
+  outline: none;
+  color: var(--text);
+  border-bottom-color: var(--gold);
+}
+
+.size-control {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.size-control button {
+  min-width: 44px;
+  height: 36px;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.size-control button:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--highlight);
+}
+/* The group is a pill, so keep keyboard focus inside it rather than
+   drawing a square ring around one half of the control. */
+.size-control button:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--gold);
+}
+.size-control button:disabled { opacity: 0.35; cursor: default; }
+
+/* --- Surah index (desktop rail) ------------------------------ */
+.surah-index {
+  position: sticky;
+  top: calc(var(--header-h) + 58px + 24px);
+  max-height: calc(100vh - var(--header-h) - 58px - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.index-toggle { display: none; }
+
+.index-search {
+  width: 100%;
+  margin: 14px 0 6px;
+  padding: 10px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+}
+.index-search::placeholder { color: var(--text-soft); }
+.index-search:focus {
+  outline: none;
+  border-bottom-color: var(--gold);
+}
+
+.surah-list li { border-bottom: 1px solid var(--border); }
+.surah-list li:last-child { border-bottom: 0; }
+
+.surah-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 6px 13px 0;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+.surah-item:hover { background: var(--highlight); }
+
+.surah-item-num {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.surah-item-name {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.surah-item-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+.surah-item-meaning {
+  font-style: italic;
+  color: var(--text);
+  opacity: 0.62;
+}
+
+.surah-item-arabic {
+  font-family: var(--font-arabic);
+  font-size: 21px;
+  line-height: 1.4;
+}
+
+.surah-item[aria-current="true"] .surah-item-num { color: var(--gold-deep); }
+.surah-item[aria-current="true"] .surah-item-name { color: var(--gold-deep); }
+
+/* --- Surah header -------------------------------------------- */
+.surah-head {
+  padding: 32px 0 12px;
+  text-align: center;
+}
+
+.surah-star {
+  width: 24px;
+  height: 24px;
+  color: var(--gold);
+  margin: 0 auto 20px;
+}
+
+.surah-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.surah-title-row {
+  margin-top: 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.surah-title {
+  font-size: clamp(34px, 5vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.surah-title-arabic {
+  font-family: var(--font-arabic);
+  font-size: clamp(30px, 4.5vw, 40px);
+  line-height: 1.5;
+}
+
+.surah-meta {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.bismillah {
+  margin: 26px 0 4px;
+  text-align: center;
+  font-family: var(--font-arabic);
+  font-size: 30px;
+  line-height: 1.9;
+}
+
+/* --- Ayah list ------------------------------------------------ */
+.ayah-list { margin-top: 14px; }
+
+/* Extra breathing room on both sides in Memorize mode, matching the
+   comfortable inset of the Read mode mushaf blocks. */
+#memorize-view .container { padding-inline: 24px; }
+
+.ayah {
+  padding: 28px 12px 30px;
+  transition: background-color 0.3s ease;
+  /* Keep deep-linked ayahs clear of the sticky header + toolbar */
+  scroll-margin-top: calc(var(--header-h) + 70px + 12px);
+}
+
+.ayah.is-current {
+  background: linear-gradient(
+    to bottom,
+    rgba(201, 162, 77, 0),
+    rgba(201, 162, 77, 0.07) 40%,
+    rgba(201, 162, 77, 0.07) 60%,
+    rgba(201, 162, 77, 0)
+  );
+}
+
+/* While word highlighting is active, don't wash the whole ayah */
+.ayah.is-current.is-word-highlighting {
+  background: none;
+}
+
+/* Currently recited word, or a word tapped to hear alone */
+.w {
+  border-radius: 0.18em;
+  transition: background-color 0.12s linear, color 0.12s linear;
+}
+.ayah-arabic .w { cursor: pointer; }
+.ayah-arabic .w.is-active,
+.ayah-arabic .w.is-word-playing {
+  background: var(--word-active);
+  color: var(--word-active-ink);
+  box-shadow: 0 0 0 0.08em rgba(201, 162, 77, 0.5);
+}
+.ayah-translit .w.is-active {
+  background: var(--word-active);
+  color: var(--word-active-ink);
+}
+
+.ayah-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.ayah-num {
+  min-width: 30px;
+  font-size: 15px;
+  color: var(--gold-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.ayah-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.ayah-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ayah-btn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-soft);
+  background: var(--bg);
+  transition: color 0.2s ease, border-color 0.2s ease,
+              background-color 0.2s ease, transform 0.15s ease;
+}
+.ayah-btn svg { width: 17px; height: 17px; }
+.ayah-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-deep);
+}
+.ayah-btn:active { transform: scale(0.94); }
+
+/* Play button states */
+.ayah-play .icon-pause { display: none; }
+.ayah-play.is-playing {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+}
+.ayah-play.is-playing.is-paused .icon-pause { display: block; }
+.ayah-play.is-playing.is-paused .icon-play { display: none; }
+
+/* Memorized state */
+.ayah-bm[aria-pressed="true"] {
+  background: var(--highlight);
+  border-color: var(--gold);
+  color: var(--gold-deep);
+}
+
+.ayah-arabic {
+  font-family: var(--font-arabic);
+  font-size: var(--ayah-arabic-size, 32px);
+  line-height: 2.15;
+  direction: rtl;
+  text-align: start;
+}
+
+.hide-translit .ayah-translit,
+.hide-mem-translation .ayah-translation,
+.hide-mem-wordbyword .ayah-wbw,
+.hide-mem-wordbyword .wbw-meaning { display: none; }
+
+.ayah-wbw {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 2px 10px;
+  margin: 4px 0 0;
+  direction: rtl;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--gold-deep);
+}
+
+/* Memorize mode: one row of word/meaning columns — no extra boxes.
+   Override --wbw-word-offset-x/y on :root or a single ayah to nudge
+   the Arabic only; the meaning underneath never moves. */
+.ayah-arabic.has-wbw {
+  --wbw-word-offset-x: 0;
+  --wbw-word-offset-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 18px 12px;
+  padding: 10px 12px 12px;
+  line-height: 1.9;
+}
+.wbw-column {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  max-width: 13ch;
+}
+.wbw-column > .w {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1.9;
+  transform: translate(var(--wbw-word-offset-x), var(--wbw-word-offset-y));
+}
+.ayah-arabic.has-wbw .wbw-space { display: none; }
+.wbw-meaning {
+  max-width: 13ch;
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+  color: var(--text-soft);
+  text-align: center;
+  direction: ltr;
+  unicode-bidi: isolate;
+  overflow-wrap: anywhere;
+}
+
+/* Crisp rule colours: no shadows or filters bleeding from the column. */
+.ayah-arabic.has-wbw .tj {
+  text-shadow: none;
+  filter: none;
+}
+.ayah-arabic.has-wbw .w.is-active,
+.ayah-arabic.has-wbw .w.is-word-playing {
+  box-shadow: none;
+  outline: 1px solid rgba(201, 162, 77, 0.55);
+  outline-offset: 1px;
+}
+
+/* Word-by-word off: flow the Arabic exactly like the plain ayah. */
+.hide-mem-wordbyword .ayah-arabic.has-wbw {
+  display: block;
+  line-height: 2.15;
+}
+.hide-mem-wordbyword .wbw-column {
+  display: inline;
+  max-width: none;
+}
+.hide-mem-wordbyword .wbw-column > .w { transform: none; }
+.hide-mem-wordbyword .ayah-arabic.has-wbw .wbw-space { display: inline; }
+
+/* Hide text masks the Arabic only; meanings stay visible as before. */
+.hide-mem-text .ayah:not(.reveal) .ayah-arabic.has-wbw {
+  filter: none;
+  opacity: 1;
+  cursor: auto;
+  user-select: auto;
+}
+.hide-mem-text .ayah:not(.reveal) .ayah-arabic.has-wbw > .wbw-column > .w {
+  filter: blur(10px);
+  opacity: 0.3;
+  cursor: pointer;
+  user-select: none;
+}
+.hide-mem-text .ayah:not(.reveal) .ayah-arabic.has-wbw:hover > .wbw-column > .w {
+  opacity: 0.45;
+}
+
+.ayah-translit {
+  margin-top: 12px;
+  max-width: 64ch;
+  font-size: 14.5px;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+
+.ayah-translation {
+  margin-top: 16px;
+  max-width: 64ch;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+
+/* --- Juz dividers ---------------------------------------------- */
+.juz-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 40px;
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.juz-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* --- Surah pager ------------------------------------------------
+   The same compact, rounded arrow buttons as the mushaf page bar:
+   next on the left (←, RTL turning), previous on the right (→), with
+   the current surah centred between them. */
+.surah-pager {
+  margin-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.surah-pager .pager-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.surah-pager .pager-spacer {
+  min-width: 56px;
+  min-height: 44px;
+}
+
+.surah-pager .page-position {
+  min-width: 116px;
+  text-align: center;
+}
+
+/* --- Loading / error states ------------------------------------- */
+.reader-state {
+  padding: 110px 0;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.reader-state-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.reader-state-text {
+  margin: 12px auto 28px;
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.reader-spinner {
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: 0 auto 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: reader-spin 0.9s linear infinite;
+}
+
+@keyframes reader-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Toast -------------------------------------------------------- */
+.reader-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 70;
+  transform: translate(-50%, 12px);
+  padding: 11px 20px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 999px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.reader-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* --- Reduced motion ----------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reader-spinner { animation: none; border-top-color: var(--border); }
+}
+
+.ayah-btn[aria-pressed="true"] svg path { fill: currentColor; }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" data-tajwid="on">
+<head>
+  <meta charset="UTF-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tajweed rules and colours — Al-Furqon</title>
+  <meta name="description" content="Every Tajweed rule with its official colour, Arabic and English name, explanation, pronunciation and a coloured Qur’an example.">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/tracker.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/tajweed.css">
+</head>
+<body data-page="tajweed">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="Al-Furqon home">
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5.2" y="5.2" width="13.6" height="13.6"/>
+            <rect x="5.2" y="5.2" width="13.6" height="13.6" transform="rotate(45 12 12)"/>
+          </g>
+          <circle cx="12" cy="12" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="brand-name">Al-Furqon</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+          <span class="nav-toggle-box" aria-hidden="true"><span></span><span></span></span>
+          <span class="visually-hidden">Menu</span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="../index.html" data-nav="home">Home</a></li>
+          <li><a href="quran.html" data-nav="quran">Quran</a></li>
+          <li><a href="tajweed.html" data-nav="tajweed">Tajweed</a></li>
+          <li><a href="statistics.html" data-nav="statistics">Statistics</a></li>
+          <li><a href="login.html" data-nav="login">Sign in</a></li>
+          <li class="site-menu-wrap">
+            <button type="button" id="site-menu-toggle" class="nav-icon-btn" aria-expanded="false" aria-controls="site-menu" aria-label="Open menu">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-settings-label">Menu</span>
+            </button>
+            <div class="site-menu" id="site-menu" role="menu" aria-label="Main menu" hidden>
+              <a href="login.html" role="menuitem">Profile</a>
+              <button type="button" role="menuitem" data-menu-settings data-settings-href="settings.html">Settings</button>
+              <a href="mailto:alfurqon.contact@gmail.com" role="menuitem">Contact us</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container page-head">
+      <p class="page-eyebrow">Tajweed</p>
+      <h1 class="page-title">Tajweed rules and colours</h1>
+      <p class="page-lede tajweed-lede">Tajweed annotations come from Quran Foundation Content APIs. Explicitly tagged rules and automatically detected heavy letters (Tafkhim) are coloured — the Arabic text itself is never changed.</p>
+    </div>
+
+    <section class="page-section"><div class="container">
+      <p class="tajweed-status" id="tajweed-status" role="status" aria-live="polite">Loading coloured examples&hellip;</p>
+      <div class="tajweed-grid" id="tajweed-grid"></div>
+    </div></section>
+
+    <section class="page-section"><div class="container">
+      <p class="section-label">Data and colours</p>
+      <p class="tajweed-source">Rule identities follow Quran Foundation Content API Tajweed tags; Tafkhim is detected locally from the seven heavy letters. This guide uses CSS colours; the reader uses the QCF V4 per-page glyph fonts.</p>
+    </div></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-note">Tajweed colours are a visual guide from tagged Qur’an data, not a substitute for learning from a qualified teacher.</p>
+      <p class="footer-note"><a class="section-link" href="quran.html">Back to the Qur’an reader</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+      <p class="footer-copy">© <span id="footer-year"></span> Al-Furqon — a personal Qur’an companion.</p>
+    </div>
+  </footer>
+
+  <script src="../js/surahs.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/tajwid.js"></script>
+  <script src="../js/quran-api.js"></script>
+  <script src="../js/arabic-font.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/tajweed-page.js"></script>
+</body>
+</html>
