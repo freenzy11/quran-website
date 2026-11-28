@@ -269,3 +269,234 @@
   color: var(--text-soft);
 }
 .inline-msg strong { color: var(--text); font-weight: 500; }
+
+/* --- Daily ayah (home page) ------------------------------------ */
+
+.daily-ayah {
+  border-top: 1px solid var(--border);
+  padding: 60px 0 64px;
+}
+
+.ayah-figure { margin: 34px 0 0; }
+
+.ayah-quote { margin: 0; }
+
+.ayah-arabic {
+  font-family: var(--font-arabic);
+  font-size: 34px;
+  line-height: 2;
+  color: var(--text);
+  text-align: center;
+}
+
+.ayah-translation {
+  margin-top: 22px;
+  font-size: 16px;
+  color: var(--text-soft);
+  max-width: 58ch;
+  text-align: center;
+}
+
+.ayah-ref {
+  margin-top: 20px;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  text-align: center;
+}
+
+/* --- Goals (home page) ----------------------------------------- */
+
+.goals {
+  border-top: 1px solid var(--border);
+  padding: 60px 0 64px;
+}
+
+.goals-note {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.goals-lede {
+  margin-top: 26px;
+  font-size: 15px;
+  color: var(--text-soft);
+  max-width: 72ch;
+}
+
+.goal-block {
+  border-top: 1px solid var(--border);
+  margin-top: 34px;
+}
+
+.goal-row {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  align-items: start;
+  gap: 32px;
+  padding: 30px 0;
+}
+
+.goal-name-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.goal-name {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.goal-mode {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.goal-progress { min-width: 0; }
+
+.goal-meta {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.goal-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.goal-link {
+  font-size: 13px;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.goal-link:hover { color: var(--gold-deep); border-color: var(--gold-deep); }
+
+.goal-edit,
+.goal-remove {
+  font-size: 13px;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.goal-edit:hover { color: var(--text); border-color: var(--text); }
+.goal-remove:hover { color: #8a3b2e; border-color: #8a3b2e; }
+
+/* --- Goal form (inline editor) ---------------------------------- */
+
+.goal-form {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 6px 0 30px;
+}
+
+.goal-field-label {
+  font-size: 13px;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.goal-input {
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: 96px;
+}
+.goal-input:focus-visible {
+  outline: none;
+  border-color: var(--text-soft);
+}
+
+.goal-presets { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+
+.goal-presets button {
+  font-size: 12.5px;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.goal-presets button:hover,
+.goal-presets button.is-active {
+  color: var(--gold-deep);
+  border-color: var(--gold);
+  background: var(--highlight);
+}
+
+.goal-modes { display: inline-flex; gap: 0; flex-wrap: wrap; }
+
+.goal-mode-btn {
+  font-size: 13.5px;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+.goal-mode-btn:first-child { border-radius: 999px 0 0 999px; }
+.goal-mode-btn:last-child { border-radius: 0 999px 999px 0; border-left: 0; }
+.goal-mode-btn.is-active {
+  color: var(--bg);
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.goal-form-hint {
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  max-width: 64ch;
+}
+
+.goal-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.goal-form-actions .btn-quiet { min-height: 40px; padding: 8px 18px; font-size: 13.5px; }
+
+/* --- Goals + daily ayah on small screens ------------------------ */
+
+@media (max-width: 860px) {
+  .goal-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 26px 0;
+  }
+  .goal-actions { margin-top: 2px; }
+  .ayah-arabic { font-size: 28px; }
+  .goals-lede { margin-top: 20px; }
+}
+
+@media (max-width: 560px) {
+  .daily-ayah { padding: 48px 0 52px; }
+  .goals { padding: 48px 0 52px; }
+  .goal-block { margin-top: 26px; }
+  .goal-name { font-size: 18px; }
+  .ayah-arabic { font-size: 25px; }
+  .ayah-translation { font-size: 15px; }
+  .goal-form { gap: 10px; }
+  .goal-mode-btn { padding: 9px 14px; font-size: 12.5px; }
+}

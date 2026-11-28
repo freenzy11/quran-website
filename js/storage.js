@@ -24,7 +24,8 @@ const Store = (() => {
     READ_AYAHS: "read-ayahs",         // { "2:255": { date, page } } (ayahs marked read in Read mode)
     BOOKMARKS:  "bookmarks",          // { "2:255": "2026-11-25T10:00:00Z" } (surah:ayah -> date)
     SURAH_VIEWED:"surahs-viewed",     // { "36": [1, 2, 3] }  (surah -> ayah numbers viewed)
-    PREFS:      "preferences"         // { reciter, translation, dailyGoalAyahs, ... }
+    PREFS:      "preferences",        // { reciter, translation, dailyGoalAyahs, ... }
+    GOALS:      "homepage-goals"      // { memorization: {...}, reading: {...} } (optional per-type goal)
   };
 
   function read(key, fallback = null) {
@@ -554,6 +555,58 @@ const Store = (() => {
     return getReadPages().includes(Number(page));
   }
 
+  /* --- Home-page goals -----------------------------------------
+     A goal only frames the existing trackers — it never writes
+     progress itself. Shape:
+       { mode: "deadline" | "open",
+         target,            // ayahs to memorize / pages to read
+         days,             // deadline mode: allowed number of days
+         daily,            // open mode: chosen pages or ayahs per day
+         startedAt,        // ISO date-time
+         startDay }        // YYYY-MM-DD
+     Khatm goals are NOT stored here: an active khatm session with
+     targetDays already models both modes, so the home page starts
+     or updates a khatm session through the khatm functions. */
+
+  function getGoals() {
+    return read(Keys.GOALS, {}) || {};
+  }
+
+  function setGoal(type, config = {}) {
+    if (type !== "memorization" && type !== "reading") return null;
+
+    const mode = config.mode === "open" ? "open" : "deadline";
+    const target = Math.floor(Number(config.target));
+    const goal = {
+      type,
+      mode,
+      target: target >= 1 ? target : null,
+      days: mode === "deadline" ? Math.floor(Number(config.days)) : null,
+      daily: Math.max(1, Math.floor(Number(config.daily)) || 1),
+      startedAt: new Date().toISOString(),
+      startDay: todayKey()
+    };
+
+    if (!goal.target) return null;
+    if (goal.mode === "deadline" && !(goal.days >= 1)) return null;
+
+    const goals = getGoals();
+    goals[type] = goal;
+    write(Keys.GOALS, goals);
+    return goal;
+  }
+
+  function removeGoal(type) {
+    const goals = getGoals();
+    delete goals[type];
+    write(Keys.GOALS, goals);
+    return true;
+  }
+
+  function getGoal(type) {
+    return getGoals()[type] || null;
+  }
+
   /* --- Preferences ------------------------------------------- */
 
   function getBookmarks() { return read(Keys.BOOKMARKS, {}) || {}; }
@@ -665,6 +718,10 @@ const Store = (() => {
     recordSurahAyahsViewed,
     getPreferences,
     setPreferences,
+    getGoals,
+    getGoal,
+    setGoal,
+    removeGoal,
     exportData,
     importData,
     resetAll
